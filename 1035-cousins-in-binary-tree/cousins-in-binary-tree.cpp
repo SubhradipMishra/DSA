@@ -31,9 +31,9 @@ public:
             int xpos = -1, ypos = -1;
             TreeNode* xparent = NULL;
             TreeNode* yparent = NULL;
-            if(findVal(root, 1, i, x, y, xpos, ypos, xparent, yparent, NULL)) 
-                return true;
+            if(!findVal(root, 1, i, x, y, xpos, ypos, xparent, yparent, NULL)) 
+                return false;
         }
-        return false;
+        return true;
     }
 };
