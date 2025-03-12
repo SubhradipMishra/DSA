@@ -20,7 +20,7 @@ public:
         findVal(root->left, cur + 1, level, x, y, xpos, ypos, xparent, yparent, root);
         findVal(root->right, cur + 1, level, x, y, xpos, ypos, xparent, yparent, root);
 
-        if(xpos == level && ypos == level && xparent != yparent) 
+        if(xpos == ypos && level && xparent != yparent) 
             return true;
         return false;
     }
