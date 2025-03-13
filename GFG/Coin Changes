@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void findComb(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& ds, int idx, int target) {
+        if (target == 0) {
+            ans.push_back(ds);
+            return;
+        }
+
+        for (int i = idx; i < candidates.size(); i++) {
+            if (candidates[i] > target) break;  
+            ds.push_back(candidates[i]);
+            findComb(candidates, ans, ds, i, target - candidates[i]); 
+            ds.pop_back();
+        }
+    }
+
+    int count(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end()); // Sorting helps pruning
+        vector<vector<int>> ans;
+        vector<int> ds;
+        findComb(candidates, ans, ds, 0, target);
+        return ans.size();
+    }
+};
