@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        // if(s.size() ==  1)  return true ; 
+       
         string ans = "";
         for(int i   = 0 ; i  <  s.size();i++){
             if(isalpha(s[i]) || isdigit(s[i])){
