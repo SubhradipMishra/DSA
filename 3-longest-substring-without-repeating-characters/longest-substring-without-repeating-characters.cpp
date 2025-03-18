@@ -3,12 +3,12 @@ public:
     int lengthOfLongestSubstring(string s) {
         if (s.size() == 0) return 0;  
         int n = s.size();
-        int maxLen = 0;  // Initialize to 0
+        int maxLen = 0; 
         unordered_set<char> se;
         int l = 0;
 
         for (int r = 0; r < n; r++) {
-            while (se.find(s[r]) != se.end()) {  // Corrected lookup
+            while (se.find(s[r]) != se.end()) {  
                 se.erase(s[l]);
                 l++;
             }
