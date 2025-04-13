@@ -1,16 +1,20 @@
 class Solution {
 public:
-int f(int idx  , vector<int>& a , vector<int>& dp){
-    if(idx == 0 ) return   a[idx] ;
-    if(idx <0 ) return  0 ;
-    if(dp[idx]!=-1) return dp[idx] ;
-    int pick = a[idx] + f(idx -2 ,a,dp);
-    int notPick = 0+ f(idx -1 ,a,dp);
-    return dp[idx]  =max(pick ,notPick) ;
-}
-    int rob(vector<int>& a) {
-        int n = a.size() ; 
-        vector<int>dp(n,-1) ; 
-        return f(n-1,a,dp);
+    int f(int i, vector<int>& dp, vector<int>& a) {
+        if (i == 0) return a[i];
+        if (i < 0) return 0;
+
+        if (dp[i] != -1) return dp[i];
+
+        int pick = a[i] + f(i - 2, dp, a);      // Pick current, skip one
+        int notPick = f(i - 1, dp, a);          // Don't pick current
+
+        return dp[i] = max(pick, notPick);
+    }
+
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n, -1);
+        return f(n - 1, dp, nums);  // Start from the last index
     }
 };
