@@ -1,16 +1,12 @@
 class Solution {
 public:
+   int f(int  i  ,  vector<int>&dp){
+   if( i == 0 ||  i == 1) return i ; 
+    if(dp[i]!=-1) return dp[i] ; 
+    return dp[i] = f(i-1,dp) + f(i-2,dp);
+   }
     int fib(int n) {
-        int  p2 =  0 ;
-        int  p1 =  1;
-        if(n )
-        for(int i  =  2 ; i <=  n ;i++){
-            int curri = p2 + p1  ; 
-            p2 = p1 ;
-            p1 = curri ; 
-        }
-
-
-        return (n == 0  )? p2 :p1 ; 
-     }
+       vector<int>dp(n+1 , -1) ; 
+       return f(n , dp)  ; 
+    }
 };
