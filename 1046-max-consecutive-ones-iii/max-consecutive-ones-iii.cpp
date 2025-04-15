@@ -8,7 +8,7 @@ public:
         int maxLen  = 0  ;
         while(j < n){
             if(nums[j] == 0  ) zeroCount++ ;
-            while(zeroCount > k ){
+            if(zeroCount > k ){
                 if(nums[i] == 0 ) zeroCount-- ; 
                 i++ ;
             }
