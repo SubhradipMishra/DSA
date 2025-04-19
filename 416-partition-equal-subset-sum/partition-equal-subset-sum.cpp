@@ -19,9 +19,22 @@ public:
         } 
         if(sum %2 != 0  )  return false  ;
         int k  = sum/2 ;
-        vector<vector<int>> dp(n, vector<int>(k+1, -1));
-        return f(n-1,k,nums,dp) ;
-        
-        
-            }
+        vector<vector<int>> dp(n, vector<int>(k+1, false));
+        // base case
+        for (int i = 0; i < n; i++) {
+            dp[i][0] = true;
+         }
+         for (int i = 1; i < n; i++) {
+        for (int target = 1; target <= k; target++) {
+            bool nonTake = dp[i-1][target];
+            bool take = false;
+            if (nums[i] <= target) 
+                take = dp[i-1][target-nums[i]];
+
+            dp[i][target] = take || nonTake;
+        }
+    }
+
+    return dp[n-1][k];
+    }
 };
