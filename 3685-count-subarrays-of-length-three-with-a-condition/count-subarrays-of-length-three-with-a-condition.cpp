@@ -1,19 +1,19 @@
 class Solution {
 public:
-    int countSubarrays(vector<int>& nums) {
-        int count = 0;
-        int n = nums.size();
-        
-        for (int i = 0; i <= n - 3; i++) {
-            int first = nums[i];
-            int second = nums[i + 1];
-            int third = nums[i + 2];
-            
-            if (second % 2 == 0 && (first + third) == (second / 2)) {
-                count++;
-            }
+    int f(int idx, vector<int>& nums) {
+        if (idx + 2 >= nums.size()) { // No valid triplet starting from here
+            return 0;
         }
         
-        return count;
+        int count = 0;
+        if (nums[idx + 1] % 2 == 0 && (nums[idx] + nums[idx + 2]) == (nums[idx + 1] / 2)) {
+            count = 1;
+        }
+        
+        return count + f(idx + 1, nums);
+    }
+
+    int countSubarrays(vector<int>& nums) {
+        return f(0, nums);
     }
 };
