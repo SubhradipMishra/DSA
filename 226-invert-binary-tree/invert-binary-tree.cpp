@@ -7,7 +7,7 @@ public:
         root->left =  root->right ;
         root->right = temp ;
          helper(root->left) ;
-        helper(root->right ) ;
+         helper(root->right ) ;
 
     }
     TreeNode* invertTree(TreeNode* root) {
