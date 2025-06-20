@@ -13,9 +13,9 @@ public:
                 int maxFreq = 0;
                 int minFreq = INT_MAX;
 
-                for (auto &[ch, count] : freq) {
-                    maxFreq = max(maxFreq, count);
-                    minFreq = min(minFreq, count);
+                for (auto x  : freq) {
+                    maxFreq = max(maxFreq, x.second);
+                    minFreq = min(minFreq, x.second);
                 }
 
                 totalBeauty += (maxFreq - minFreq);
