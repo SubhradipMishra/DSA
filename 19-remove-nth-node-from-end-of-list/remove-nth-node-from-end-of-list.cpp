@@ -1,28 +1,28 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int  len = 0 ; 
-        ListNode* temp = head ; 
+    ListNode* removeNthFromEnd(ListNode* head, int k) {
+     
+        int n =  0 ;
+        ListNode* temp  = head ; 
+
+        // find the length of the list
+
         while(temp){
-            len++; 
-            temp = temp->next ;
+            n++ ; 
+            temp = temp->next ; 
+
         }
-           if(n  == len ) return  head->next ;
-        temp = head ; 
 
-        for(int i  = 1 ; i <= len - n - 1  ; i++) temp =  temp->next ; 
+        if( n == k  ) return head->next; 
 
-        temp->next = temp->next->next ; 
+        // now we find the element which is just before the element whichh is need to delete
+          temp = head ; 
+        for(int i  =  1 ; i <= n - k -1  ; i++ ){
+           temp = temp->next ; 
+        }
+
+        temp->next  = temp->next->next ; 
 
 
         return head ; 
