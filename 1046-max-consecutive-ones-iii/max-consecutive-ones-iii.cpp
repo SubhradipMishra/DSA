@@ -8,12 +8,12 @@ public:
         int maxLen = 0 ; 
         while( j < n ){
             if(nums[j] ==  0 ) zeros++ ;
-            while(zeros > k ){
+            if(zeros > k ){
                 if(nums[i] == 0 )  zeros--;
                 i++ ; 
             }
 
-           maxLen  = max(maxLen ,j-i+1);
+           if(zeros <=  k ) maxLen  = max(maxLen ,j-i+1);
             j++ ;
         }
 
