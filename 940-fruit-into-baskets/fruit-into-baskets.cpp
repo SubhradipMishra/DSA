@@ -10,7 +10,7 @@ public:
         while(j < n ){
             mp[fruits[j]]++;
 
-            if(mp.size() > k){
+            while(mp.size() > k){
                 mp[fruits[i]]--;
                 if(mp[fruits[i]] == 0 )  mp.erase(fruits[i]) ;
                 i++; 
