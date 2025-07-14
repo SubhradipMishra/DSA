@@ -10,13 +10,8 @@ public:
         while(j  <  n ) {
             mp[s[j]]++ ;
             maxF = max(maxF , mp[s[j]]);
-            while((j- i +1 )- maxF > k ) {
+          if((j- i +1 )- maxF > k ) {
                 mp[s[i]]-- ;
-                if(mp[s[i]] == 0 ) mp.erase(s[i]) ;
-                maxF = 0 ;
-                for(auto it :  mp){
-                    maxF =  max(maxF , it.second) ; 
-                }
                 i++ ;
             }
              maxLen = max(maxLen , j  - i +1) ;
