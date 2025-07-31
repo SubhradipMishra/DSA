@@ -13,8 +13,8 @@ class Solution{
         if (list) pq.push(list);
     }
 
-    ListNode dummy(0);
-    ListNode* tail = &dummy;
+    ListNode* dummy = new ListNode(-1000);
+    ListNode* tail = dummy;
 
     while (!pq.empty()) {
         ListNode* smallest = pq.top(); pq.pop();
@@ -26,7 +26,7 @@ class Solution{
         }
     }
 
-    return dummy.next;
+    return dummy->next;
 }
 
 } ;
