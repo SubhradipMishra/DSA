@@ -13,8 +13,8 @@ public:
         vector<int> colSum(n, 0); 
 
         for(int i = 0 ; i < row ; i++ ){
-            int first = bookings[i][0] - 1; // Convert to 0-based index
-            int last  = bookings[i][1] - 1; // Convert to 0-based index
+            int first = bookings[i][0] - 1; 
+            int last  = bookings[i][1] - 1; 
             int seat  = bookings[i][2];
 
             helper(colSum, first, last, seat); 
