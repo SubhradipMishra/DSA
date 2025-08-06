@@ -9,6 +9,6 @@ public:
         maxIdx = max(maxIdx , x) ; 
      }   
 
-     return maxIdx >= n-1; 
+     return true ;
     }
 };
