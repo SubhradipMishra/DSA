@@ -12,12 +12,13 @@ public:
         else if(nums[i] == nums[i-1]+1){
            len++ ;
            maxLen = max(maxLen , len); 
-           el = nums[i] ;
+         
         }
         else{
-            el = nums[i];
+           
             len = 1 ;
         }
+          el = nums[i] ;
          maxLen = max(maxLen , len);
      }   
 
