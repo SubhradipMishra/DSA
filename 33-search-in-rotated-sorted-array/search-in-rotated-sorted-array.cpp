@@ -30,6 +30,7 @@ public:
         int n = nums.size();
         int pivot = findPivot(nums);
 
+        if(nums[pivot] ==  target)  return pivot ; 
         // Decide which side to search
         if (target >= nums[pivot] && target <= nums[n - 1]) {
             return binarySearch(nums, pivot, n - 1, target);
