@@ -18,22 +18,31 @@ public:
         for(string w : wordlist) {
             string low = w; 
             transform(low.begin(), low.end(), low.begin(), ::tolower);
-            if(!mp.count(low)) mp[low] = w;
+            if(mp.find(low) == mp.end()) mp[low] = w;
 
             string dv = devowel(w);
-            if(!vmp.count(dv)) vmp[dv] = w;
+            if(vmp.find(dv) == vmp.end()) vmp[dv] = w;
         }
 
         vector<string> ans;
         for(string q : queries) {
-            if(exact.count(q)) { ans.push_back(q); continue; }
+            if(exact.find(q) != exact.end()) {
+                ans.push_back(q);
+                continue;
+            }
 
             string low = q; 
             transform(low.begin(), low.end(), low.begin(), ::tolower);
-            if(mp.count(low)) { ans.push_back(mp[low]); continue; }
+            if(mp.find(low) != mp.end()) {
+                ans.push_back(mp[low]);
+                continue;
+            }
 
             string dv = devowel(q);
-            if(vmp.count(dv)) { ans.push_back(vmp[dv]); continue; }
+            if(vmp.find(dv) != vmp.end()) {
+                ans.push_back(vmp[dv]);
+                continue;
+            }
 
             ans.push_back("");
         }
