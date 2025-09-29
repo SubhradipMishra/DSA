@@ -1,25 +1,29 @@
 class Solution {
 public:
     int countCompleteSubarrays(vector<int>& nums) {
+        unordered_set<int> st;
         int n = nums.size();
-        unordered_set<int> s(nums.begin(), nums.end());
-        int k = s.size(); // total unique elements
-        
-        unordered_map<int, int> freq;
-        int count = 0;
-        int left = 0;
-
-        for (int right = 0; right < n; ++right) {
-            freq[nums[right]]++;
-            
-            while (freq.size() == k) {
-                count += (n - right); // all subarrays from left to right...n-1
-                freq[nums[left]]--;
-                if (freq[nums[left]] == 0)
-                    freq.erase(nums[left]);
-                left++;
-            }
+        for (int i = 0; i < nums.size(); i++) {
+            st.insert(nums[i]);
         }
-        return count;
+        int k = st.size();
+        int i = 0;
+        int j = 0;
+        long long count = 0;
+
+        unordered_map<int,int> mp;
+        while (j < nums.size()) {
+            mp[nums[j]]++;
+            while (mp.size() == k) {
+                count += (n-j);
+                mp[nums[i]]--;
+                if (mp[nums[i]] == 0) mp.erase(nums[i]);
+                i++;
+            }
+
+            j++ ;
+            
+        }
+        return (int)count;
     }
 };
