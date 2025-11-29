@@ -1,61 +1,38 @@
 class Solution {
 public:
+    void dfs(vector<vector<char>>& grid, int i, int j) {
+        int m = grid.size();
+        int n = grid[0].size();
 
-    void bfs(vector<vector<char>>& grid, vector<vector<int>>& visited, int row, int col) {
+        // Base case: if out of bounds or current cell is water ('0')
+        if (i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == '0') return;
 
-        visited[row][col] = 1; 
-        queue<pair<int,int>> q;
+        // Mark the cell as visited
+        grid[i][j] = '0';
 
-        int n = grid.size(); 
-        int m = grid[0].size();
-        
-        q.push({row, col}); 
-        
-        while (!q.empty()) {
-            int curr_row = q.front().first; 
-            int curr_col = q.front().second; 
-            q.pop(); 
-             
-            // YOUR STYLE — loops from -1 to 1
-            for(int delRow = -1; delRow <= 1; delRow++){
-                for(int delCol = -1; delCol <= 1; delCol++){
-
-                    if(delRow == 0 && delCol == 0) continue;
-
-                    int newRow = curr_row + delRow;
-                    int newCol = curr_col + delCol;
-
-                    // ❗ restrict to 4 directions only
-                    if(abs(delRow) + abs(delCol) == 2) continue;   // remove diagonals
-
-                    if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m) {
-
-                        // ❗ FIXED: comparison instead of assignment
-                        if(visited[newRow][newCol] == 0 && grid[newRow][newCol] == '1') {
-                            visited[newRow][newCol] = 1; 
-                            q.push({newRow, newCol});
-                        }
-                    }
-                }
-            }
-        }
+        // Visit all 4 adjacent directions
+        dfs(grid, i + 1, j); // down
+        dfs(grid, i - 1, j); // up
+        dfs(grid, i, j + 1); // right
+        dfs(grid, i, j - 1); // left
     }
 
     int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+        int m = grid.size();
+        if (m == 0) return 0;
+        int n = grid[0].size();
 
-        vector<vector<int>> visited(n, vector<int>(m, 0)); 
         int count = 0;
 
-        for(int row = 0; row < n; row++){
-            for(int col = 0; col < m; col++){
-                if(!visited[row][col] && grid[row][col] == '1') {
-                    count++;
-                    bfs(grid, visited, row, col);
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] == '1') {
+                    dfs(grid, i, j);  // sink the island
+                    count++;          // increment the number of islands
                 }
             }
         }
+
         return count;
     }
 };
