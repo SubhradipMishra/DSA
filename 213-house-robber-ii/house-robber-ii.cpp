@@ -1,27 +1,38 @@
 class Solution {
 public:
-    int robLinear(vector<int>& nums, int start, int end, vector<int>& dp) {
-        if (start > end) return 0;
-        if (dp[start] != -1) return dp[start];
+    int helper(vector<int>& nums , int st , int end , vector<int>& dp){
+        if(st >  end )  return  0; 
+        if(dp[st]!=-1) return dp[st] ; 
 
-        int robCurrent = nums[start] + robLinear(nums, start + 2, end, dp);
-        int skipCurrent = robLinear(nums, start + 1, end, dp);
+        int  rob =  nums[st]  + helper(nums , st + 2  , end , dp) ; 
+        int  skip =  helper(nums , st + 1  , end , dp)  ; \
 
-        return dp[start] = max(robCurrent, skipCurrent);
+        return dp[st]  = max(rob , skip) ; 
+
+        
     }
-
     int rob(vector<int>& nums) {
-        int n = nums.size();
-        if (n == 1) return nums[0];
+        int n = nums.size() ; 
+        if( n == 1) return nums[0] ;
+        
+        // exclude first element
+ 
 
-        // Exclude first house
-        vector<int> dp1(n, -1);
-        int rob1 = robLinear(nums, 1, n - 1, dp1);
+           vector<int>dp1(n,-1) ;
+           int r1 =  helper(nums , 1 , n -1 , dp1 ) ; 
 
-        // Exclude last house
-        vector<int> dp2(n, -1);
-        int rob2 = robLinear(nums, 0, n - 2, dp2);
+           vector<int> dp2(n, -1);
+           int r2 = helper(nums, 0, n - 2, dp2);
+           
 
-        return max(rob1, rob2);
+
+           return max(r1 ,r2) ; 
+
+           
+          
+
+ 
+
+    
     }
 };
