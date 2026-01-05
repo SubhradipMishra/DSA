@@ -1,17 +1,24 @@
+bool comp(vector<int>a , vector<int> b){
+    return a[1]  <  b[1]  ;
+}
 class Solution {
 public:
-static bool compare(const vector<int>& a, const vector<int>& b) {
-        return a[1] < b[1];
-    }
-    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        int  res  = 0 ; 
-        sort(intervals.begin() , intervals.end(),compare); 
-        int  endTime = intervals[0][1] ; 
-        for(int i  =  1 ; i  <intervals.size() ; i++  ){
-            if(intervals[i][0] < endTime ) res++ ; 
-           else endTime =  intervals[i][1]; 
+    int eraseOverlapIntervals(vector<vector<int>>& inter) {
+        int count = 0 ; 
+        sort(inter.begin() , inter.end() , comp) ;
+
+        int end = inter[0][1] ; 
+        for(int  i =  1 ; i   < inter.size() ; i++)
+        {
+            if(end <= inter[i][0]){
+                end = inter[i][1] ; 
+            }
+
+            else {
+                count++; 
+            }
         }
 
-        return res ; 
+        return count ;
     }
 };
