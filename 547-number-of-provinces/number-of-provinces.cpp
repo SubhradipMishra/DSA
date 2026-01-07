@@ -1,45 +1,38 @@
 class Solution {
 public:
-   void dfs(int st , vector<int>adj[] , vector<int>& vis){
-    vis[st] = 1 ; 
-    for(auto it : adj[st]){
-        if(vis[it] == 0 ){
-            dfs(it, adj ,vis) ; 
+    void dfs(vector<vector<int>>& adj, vector<bool>& visited, int st) {
+        visited[st] = true;
+        for (auto x : adj[st]) {
+            if (!visited[x]) {
+                dfs(adj, visited, x);
+            }
         }
     }
-   }
+
     int findCircleNum(vector<vector<int>>& adj) {
-        int v = adj.size() ; 
-        vector<int>adjList[v] ; 
+        int v = adj.size();
 
-        // convert adj matix to adj list
+        vector<vector<int>> adjList(v);
 
-        for(int i  =  0 ; i < v ; i++){
-            for(int j = 0 ; j < v ; j++ ){
-                if(adj[i][j] == 1 && i!= j){
-                    adjList[i].push_back(j) ; 
-                      adjList[j].push_back(i) ; 
+        for (int i = 0; i < v; i++) {
+            for (int j = 0; j < v; j++) {
+                if (adj[i][j] == 1 && i != j) {
+                    adjList[i].push_back(j);
+                    adjList[j].push_back(i);
                 }
             }
         }
-           
-           // create visited array
-            vector<int>vis(v,0) ; 
-            
-          // no of provinces
-           int count = 0 ; 
 
-          // check which node are not visited amd run dfs for only this node
+        vector<bool> visited(v, false);
+        int count = 0;
 
-            for(int i  =   0 ; i  < v  ; i++){
-                if(!vis[i]){
-                    count++;  
-                    dfs(i , adjList , vis) ; 
-                }
+        for (int i = 0; i < v; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(adjList, visited, i);
             }
+        }
 
-            
-          
-        return count ; 
+        return count;
     }
 };
