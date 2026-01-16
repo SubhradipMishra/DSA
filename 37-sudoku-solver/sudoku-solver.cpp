@@ -1,35 +1,51 @@
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
-    bool isSafe(vector<vector<char>>& board, int row, int col, char ch) {
-        for (int i = 0; i < 9; i++) {
-            if (board[row][i] == ch) return false;
+    bool check(int num, vector<vector<char>>& board, int i, int j) {
+        char ch = '0' + num;
+
+        for (int col = 0; col < 9; col++) {
             if (board[i][col] == ch) return false;
-            int subRow = 3 * (row / 3) + i / 3;
-            int subCol = 3 * (col / 3) + i % 3;
-            if (board[subRow][subCol] == ch) return false;
         }
+
+        for (int row = 0; row < 9; row++) {
+            if (board[row][j] == ch) return false;
+        }
+
+        int sr = (i / 3) * 3;
+        int sc = (j / 3) * 3;
+
+        for (int a = 0; a < 3; a++) {
+            for (int b = 0; b < 3; b++) {
+                if (board[sr + a][sc + b] == ch)
+                    return false;
+            }
+        }
+
         return true;
     }
 
-    bool helper(vector<vector<char>>& board, int row, int col) {
-        if (row == 9) return true;
-        if (col == 9) return helper(board, row + 1, 0);
-        if (board[row][col] != '.') return helper(board, row, col + 1);
+    bool solve(int i, int j, vector<vector<char>>& board) {
+        if (i == 9) return true;
+        if (j == 9) return solve(i + 1, 0, board);
 
-        for (char ch = '1'; ch <= '9'; ch++) {
-            if (isSafe(board, row, col, ch)) {
-                board[row][col] = ch;
-                if (helper(board, row, col + 1)) return true;
-                board[row][col] = '.';
+        if (board[i][j] != '.')
+            return solve(i, j + 1, board);
+
+        for (int num = 1; num <= 9; num++) {
+            if (check(num, board, i, j)) {
+                board[i][j] = '0' + num;
+
+                if (solve(i, j + 1, board))
+                    return true;
+
+                board[i][j] = '.';
             }
         }
+
         return false;
     }
 
     void solveSudoku(vector<vector<char>>& board) {
-        helper(board, 0, 0);
+        solve(0, 0, board);
     }
 };
