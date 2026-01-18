@@ -1,45 +1,50 @@
 class Solution {
 public:
+    vector<vector<char>> grid;
+    vector<vector<string>> ans;
 
+   bool isSafe(int row ,int col , int n  ){
+    for(int  i =  row - 1  ; i >= 0 ; i--){
+        if(grid[i][col] == 'Q') return false ; 
+    }
+    for(int i  = row -1  ,j= col-1  ; i>= 0 && j >= 0 ; i-- ,j--){
+        if(grid[i][j] == 'Q') return false ; 
+    }
+    for(int i = row - 1 , j =  col +1 ; i >= 0 && j < n ; i-- , j++){
+        if(grid[i][j] == 'Q') return false ; 
+    }
 
-   
-        vector<vector<string>> ans ; 
-        vector<string>board ; 
+    return true  ;
+   }
 
-        vector<bool> col, diag1, diag2;
-
-    void helper(int row   , int n ){
-        if(row ==  n) {
-            
-        ans.push_back(board);
-        return ; 
-        }
-
-        for(int c = 0  ; c <  n ;c++){
-            if(!col[c] && !diag1[row-c+n-1] && !diag2[row + c]){
-                board[row][c] ='Q' ; 
-                col[c] = diag1[row - c + n - 1] = diag2[row + c] = true;
-                helper(row+1 ,n );  
-                 board[row][c] ='.' ; 
-                col[c] = diag1[row - c + n - 1] = diag2[row + c] = false;
-
+   void helper(int row , int n){
+    if(row == n ){
+        vector<string> temp ;
+        for(int  i =   0 ; i < n ;i++){
+            string s = "";
+            for(int j =  0 ; j < n ;j++){
+                s+= grid[i][j];
             }
+            temp.push_back(s);
+        }
+        ans.push_back(temp);
+        return ; 
+    }
+
+    for(int col =   0 ;col <  n ; col++){
+        if(isSafe(row, col , n)){
+            grid[row][col] = 'Q';
+            helper(row + 1 , n ) ;
+            grid[row][col] = '.';
         }
     }
 
+   }
     vector<vector<string>> solveNQueens(int n) {
-        
         ans.clear();
-        board.assign(n, string(n, '.'));
+        grid.assign(n,vector<char>(n,'.'));
+        helper(0,n);
 
-        col.assign(n,false) ; 
-
-        diag1.assign(2*n-1 , false) ; 
-        diag2.assign(2*n-1 , false) ; 
-
-        helper( 0 , n) ; 
-
-        return ans ;  
-
+        return ans ; 
     }
 };
