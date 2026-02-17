@@ -5,7 +5,7 @@ public:
         stack<int> st;
         int n = nums2.size();
 
-        // Handle last element manually
+        
         st.push(nums2[n - 1]);
         mp[nums2[n - 1]] = -1;
 
