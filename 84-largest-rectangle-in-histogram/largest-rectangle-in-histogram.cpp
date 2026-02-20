@@ -9,7 +9,7 @@ public:
                 int el =  arr[st.top()] ; 
                 st.pop() ;
                 int nse =  i ;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             int pse = st.empty() ? -1 : st.top() ;
+                int pse = st.empty() ? -1 : st.top() ;
                 maxi  = max(maxi , el*(nse-pse-1)) ;
 
             }
