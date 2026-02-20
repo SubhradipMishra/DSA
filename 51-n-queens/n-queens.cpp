@@ -1,50 +1,58 @@
 class Solution {
 public:
+
+
     vector<vector<char>> grid;
     vector<vector<string>> ans;
 
-   bool isSafe(int row ,int col , int n  ){
-    for(int  i =  row - 1  ; i >= 0 ; i--){
-        if(grid[i][col] == 'Q') return false ; 
-    }
-    for(int i  = row -1  ,j= col-1  ; i>= 0 && j >= 0 ; i-- ,j--){
-        if(grid[i][j] == 'Q') return false ; 
-    }
-    for(int i = row - 1 , j =  col +1 ; i >= 0 && j < n ; i-- , j++){
-        if(grid[i][j] == 'Q') return false ; 
+    bool isSafe(int row , int col , int n){
+        for(int i  =  row - 1 ;  i >= 0 ; i--){
+            if(grid[i][col] == 'Q') return false ; 
+        }
+
+
+        for(int i  = row-1 , j = col-1  ; i>= 0 && j>= 0 ; i-- , j--){
+            if(grid[i][j] == 'Q')  return false ; 
+        }
+        for(int i  = row-1 , j = col+1  ; i>= 0 && j< n ; i-- , j++){
+            if(grid[i][j] == 'Q')  return false ; 
+        }
+
+
+          return true ;
+
     }
 
-    return true  ;
-   }
-
-   void helper(int row , int n){
-    if(row == n ){
-        vector<string> temp ;
-        for(int  i =   0 ; i < n ;i++){
-            string s = "";
-            for(int j =  0 ; j < n ;j++){
-                s+= grid[i][j];
+    void helper(int row, int n ){
+        if(row == n ){
+            vector<string>temp ; 
+            for(int  i = 0 ; i <  n ; i++){
+                string s  ="";
+            for(int j =  0 ;  j <  n ; j++){
+                     s+=grid[i][j] ; 
+                }
+                temp.push_back(s);
             }
-            temp.push_back(s);
-        }
-        ans.push_back(temp);
-        return ; 
-    }
 
-    for(int col =   0 ;col <  n ; col++){
-        if(isSafe(row, col , n)){
-            grid[row][col] = 'Q';
-            helper(row + 1 , n ) ;
-            grid[row][col] = '.';
+            ans.push_back(temp) ; 
+        }
+
+        for(int col =  0 ;  col <  n ; col++){
+            if(isSafe(row , col , n)) {
+                grid[row][col] = 'Q' ;
+                helper(row + 1 ,  n ) ; 
+                grid[row][col] ='.' ; 
+            }
         }
     }
-
-   }
     vector<vector<string>> solveNQueens(int n) {
-        ans.clear();
+
+        ans.clear() ; 
+         
         grid.assign(n,vector<char>(n,'.'));
         helper(0,n);
 
         return ans ; 
+
     }
 };
