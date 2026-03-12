@@ -1,21 +1,22 @@
 
 class Solution {
-private: int maxPath = INT_MIN ; 
-private: int findNoOfNodes(TreeNode* root){
- if(!root) return  0 ; 
- return 1 + max(findNoOfNodes(root->left )  , findNoOfNodes(root->right)); 
 
-}
+    int maxi  = INT_MIN ; 
+    int findNoOfNode(TreeNode* root){
+        if(root == NULL)  return 0 ;
+        return 1 + max(findNoOfNode(root->left) , findNoOfNode(root->right));  
+    }
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root == NULL )  return  0  ;
-        int ans =  findNoOfNodes(root->left) + findNoOfNodes(root->right) ; 
-        if(maxPath < ans)  maxPath =  ans  ;
-        
-        diameterOfBinaryTree(root->left) ;
+       if(root == NULL) return 0 ;
+       int ans = findNoOfNode(root->left) + findNoOfNode(root->right)  ;
+       maxi = max(maxi , ans);
+
+       diameterOfBinaryTree(root->left) ;
         diameterOfBinaryTree(root->right) ;
 
-        return maxPath ; 
+
+        return maxi ; 
 
     }
 };
