@@ -1,33 +1,24 @@
 
 class Solution {
 public:
- int level(TreeNode* root ){
-    if(root == NULL) return 0 ;
-    
-    return 1 + max(level(root->left) ,level(root->right))  ;
-       
- }
-
-
-void l_order(TreeNode* root , vector<vector<int>>& ans,int l)  {
-     if(root == NULL) return ; 
-     ans[l].push_back(root->val); 
-
-    l_order(root->left,ans,l+1);
-    l_order(root->right,ans,l+1);
-}
-
-
-
     vector<vector<int>> levelOrder(TreeNode* root) {
-         vector<vector<int>> ans ; 
-          int n  = level(root) ;
-            for(int  i  = 1 ; i <= n  ; i++ ) {
-                vector<int>v;
-             
-                ans.push_back(v);
+        vector<vector<int>>ans;
+        if(!root) return ans ; 
+        queue<TreeNode*>q ;
+        q.push(root);
+        while(!q.empty()){
+            int s = q.size() ;
+            vector<int>v ; 
+            for(int i = 0 ; i < s ;i++){
+              TreeNode* node = q.front() ;
+              q.pop() ;
+              v.push_back(node->val);
+              if(node->left) q.push(node->left);
+              if(node->right) q.push(node->right);
             }
-        l_order(root,ans,0) ; 
-        return ans ; 
+            ans.push_back(v);
+        }
+
+        return ans ;
     }
 };
