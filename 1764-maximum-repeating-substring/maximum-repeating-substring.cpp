@@ -1,15 +1,19 @@
 class Solution {
 public:
-    // Z-function
-    vector<int> buildZ(string s) {
-        int n = s.size();
+    int maxRepeating(string text, string pattern) {
+
+        string s = pattern + '$' + text;
+        int n = s.length();
+
         vector<int> z(n, 0);
+
         int l = 0, r = 0;
 
         for (int i = 1; i < n; i++) {
 
             if (i <= r) {
-                z[i] = min(r - i + 1, z[i - l]);
+                int k = i - l;
+                z[i] = min(r - i + 1, z[k]);
             }
 
             while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
@@ -21,35 +25,23 @@ public:
                 r = i + z[i] - 1;
             }
         }
-        return z;
-    }
 
-    int maxRepeating(string text, string pattern) {
+        int m = pattern.size();
+        int maxCount = 0;
 
-        string temp = pattern;
-        int ans = 0;
+        for (int i = m + 1; i < n; i++) {
 
-        while (true) {
+            int count = 0;
+            int j = i;
 
-            string s = temp + "$" + text;
-            vector<int> z = buildZ(s);
-
-            bool found = false;
-
-            for (int i = 0; i < z.size(); i++) {
-                if (z[i] == temp.size()) {
-                    found = true;
-                    break;
-                }
+            while (j < n && z[j] >= m) {
+                count++;
+                j += m;
             }
 
-            if (!found)
-                break;
-
-            ans++;
-            temp += pattern; 
+            maxCount = max(maxCount, count);
         }
 
-        return ans;
+        return maxCount;
     }
 };
