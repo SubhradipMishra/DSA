@@ -2,7 +2,8 @@ class Solution {
 public:
     int mySqrt(int x) {
         int low = 1 ; 
-        int high =  x ; 
+        int high =  x/2 ; 
+        if(x ==  1)  return 1 ; 
         if(x==0) return  0 ;
           while(low <=  high ) {
             int mid = low + (high-low)/2 ; 
