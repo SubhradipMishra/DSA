@@ -10,7 +10,7 @@ public:
         while(j < n){
             if(mp.find(s[j]) != mp.end()){
              i = max(i, mp[s[j]] + 1); 
-                mp.erase(s[j]) ; 
+               
                 
             }
             mp[s[j]] = j ; 
